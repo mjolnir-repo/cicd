@@ -1,0 +1,1 @@
+ansible-playbook git_clone_playbook.yml -s -v
