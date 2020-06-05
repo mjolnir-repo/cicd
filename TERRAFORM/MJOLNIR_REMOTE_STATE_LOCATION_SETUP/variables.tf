@@ -1,4 +1,4 @@
-variable remote_state_location_region {
+variable "remote_state_location_region" {
     description = "AWS region to be used"
     type        = string
     default     = "us-east-1"
