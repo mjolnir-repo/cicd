@@ -13,6 +13,11 @@ resource "aws_s3_bucket" "remote_state_location" {
 
   bucket = var.remote_state_location_bucket
 
+  tags = {
+    project = var.project
+    owner = var.user
+  }
+
   # Enabling versioning to get full revision history of state files, if required
   versioning {
     enabled = true
