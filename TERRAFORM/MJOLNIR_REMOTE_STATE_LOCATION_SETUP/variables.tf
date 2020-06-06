@@ -21,3 +21,9 @@ variable "remote_state_location_bucket" {
     type        = string
     default     = "mjolnir-cicd-terraform-remote-state-location"
 }
+
+variable "remote_state_lock_table" {
+    description = "DynamoDB table name to enforce .tfstate files"
+    type        = string
+    default     = "mjolnir-cicd-terraform-state-lock-dynamo-collection"
+}
