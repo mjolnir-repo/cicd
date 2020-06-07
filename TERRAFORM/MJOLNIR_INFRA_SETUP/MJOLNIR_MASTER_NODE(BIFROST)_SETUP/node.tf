@@ -6,6 +6,7 @@ resource "aws_instance" "bifrost" {
     vpc_security_group_ids = [var.midguard_sg_id]
     subnet_id = element(var.midguard_public_subnet_ids, 0)
     associate_public_ip_address = true
+    user_data = file("./MJOLNIR_MASTER_NODE(BIFROST)_SETUP/installations.sh")
 
     tags = {
         Name = "bifrost"
