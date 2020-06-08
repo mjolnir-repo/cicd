@@ -6,7 +6,7 @@ resource "aws_instance" "bifrost" {
     vpc_security_group_ids = [var.midguard_sg_id]
     subnet_id = element(var.midguard_public_subnet_ids, 0)
     associate_public_ip_address = true
-    user_data = file("./MJOLNIR_MASTER_NODE(BIFROST)_SETUP/installations.sh")
+    user_data = data.template_file.bifrost_user_data_file.rendered
 
     tags = {
         Name = "bifrost"
@@ -15,8 +15,7 @@ resource "aws_instance" "bifrost" {
     }
 }
 
-# Add EIP creation to midguard set up
-# resource "aws_eip" "bifrost_eip" {
-#   instance = "${aws_instance.bifrost.id}"
-#   vpc      = true
-# }
+resource "aws_eip_association" "bifrost_eip_assoc" {
+    instance_id   = aws_instance.bifrost.id
+    allocation_id = var.midguard_bifrost_eip_id
+}

@@ -89,3 +89,14 @@ resource "aws_route_table_association" "midguard_private_gate_pass" {
     subnet_id = element(aws_subnet.midguard_private_blocks.*.id, count.index)
     route_table_id = aws_route_table.midguard_private_gate.id
 }
+
+# Create EIP
+resource "aws_eip" "midguard_bifrost_eip" {
+    vpc = true
+
+    tags = {
+        Name = "midguard_bifrost_eip"
+        project = var.project
+        owner = var.user
+    }
+}

@@ -85,3 +85,14 @@ output "bifrost_ip" {
   value       = module.bifrost.bifrost_ip
   description = "Public IP of the Master Node"
 }
+
+# EIP Association Outputs
+output "bifrost_eip" {
+  value       = module.midguard.midguard_bifrost_eip_ip
+  description = "EIP of the Master Node"
+}
+
+output "bifrost_eip_dns" {
+  value       = module.midguard.midguard_bifrost_eip_dns
+  description = "EIP-DNS of the Master Node"
+}

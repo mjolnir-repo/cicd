@@ -63,3 +63,20 @@ output "midguard_sg_egress" {
   value = aws_security_group.midguard_heimdal_default.egress
   description = "Allowed outbound rules of Multipurpose Security Group"
 }
+
+
+# EIP ouputs
+output "midguard_bifrost_eip_id" {
+  value       = aws_eip.midguard_bifrost_eip.id
+  description = "EIP ID of the Master Node"
+}
+
+output "midguard_bifrost_eip_ip" {
+  value       = aws_eip.midguard_bifrost_eip.public_ip
+  description = "EIP IP of the Master Node"
+}
+
+output "midguard_bifrost_eip_dns" {
+  value       = aws_eip.midguard_bifrost_eip.public_dns
+  description = "EIP DNS of the Master Node"
+}
