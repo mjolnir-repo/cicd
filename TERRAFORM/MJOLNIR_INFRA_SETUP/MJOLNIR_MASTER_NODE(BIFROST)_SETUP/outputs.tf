@@ -18,3 +18,7 @@ output "bifrost_ip" {
   value       = aws_instance.bifrost.public_ip
   description = "Public IP of the Master Node"
 }
+
+output bifrost_user_data {
+  value = "\n${data.template_file.bifrost_user_data_file.rendered}"
+}

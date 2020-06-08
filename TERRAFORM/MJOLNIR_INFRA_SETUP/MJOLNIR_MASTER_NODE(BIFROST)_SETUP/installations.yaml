@@ -1,0 +1,53 @@
+#cloud-config
+package_update: true
+
+runcmd:
+    - [echo, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Installing Docker ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"]
+    - [yum, install, docker, -y]
+    - [echo, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Installing Python 3 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"]
+    - [cd, /usr/bin]
+    - [yum, install, python36-virtualenv.noarch, -y]
+    - [ln, -sfn, python3.6, python]
+    - [ln, -sfn, pip-3.6, pip]
+    - [pip, install, --upgrade, pip]
+    - [echo, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Installing Java 1.8 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"]
+    - [cd, /root]
+    - [yum, install, java-1.8.0-openjdk-devel, -y]
+    - [java, -version]
+    - [echo, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Installing Scala 2.11 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"]
+    - [wget, http://downloads.lightbend.com/scala/2.11.8/scala-2.11.8.rpm]
+    - [yum, install, scala-2.11.8.rpm, -y]
+    - [scala, -version]
+    - [/usr/local/bin/pip, install, py4j]
+    - [echo, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Installing Spark 2.4 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"]
+    - [wget, http://archive.apache.org/dist/spark/spark-2.4.5/spark-2.4.5-bin-hadoop2.7.tgz]
+    - [tar, -zxvf, spark-2.4.5-bin-hadoop2.7.tgz]
+    - [cd, spark-2.4.5-bin-hadoop2.7]
+    - [/usr/local/bin/pip, install, findspark]
+    - [echo, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Installing and configuring Jupyter ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"]
+    - [/usr/local/bin/pip, install, jupyter]
+    - [/usr/local/bin/jupyter, notebook, --generate-config]
+    - [cd, /root]
+    - [mkdir, certs]
+    - [cd, certs/]
+    - [sudo, openssl, req, -x509, -nodes, -days, 365, -newkey, rsa:1024, -keyout, mycert.pem, -out, mycert.pem, -subj, "/C=IN/ST=Not Available/L=Not Available/O=Not Available/OU=INot Available/CN=not.available@baddomain.com"]
+    - [ls, -lrt]
+    - [echo, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Creating Spark bed ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"]
+    - [mkdir, /root/spark_bed]
+    - [chmod, 777, /root/spark_bed]
+    - [cd, /root/spark_bed]
+
+write_files:
+    - content: |
+        c = get_config()
+        c.NotebookApp.certfile = u'/root/certs/mycert.pem'
+        c.NotebookApp.ip = '0.0.0.0'
+        c.NotebookApp.open_browser = False
+        c.NotebookApp.port = ${v_jupyter_port}
+        c.NotebookApp.token = 'CaputDraconis'
+    - owner: root:root
+    - path: /root/.jupyter/jupyter_notebook_config.py
+    - permissions: '0777'
+
+runcmd:
+    -[nohup, /usr/local/bin/jupyter, notebook, --allow-root, &]

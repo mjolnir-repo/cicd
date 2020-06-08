@@ -15,5 +15,6 @@ module "bifrost" {
 
     midguard_sg_id = module.midguard.midguard_sg_id
     midguard_public_subnet_ids = module.midguard.midguard_public_subnet_ids
+    midguard_bifrost_eip_id = module.midguard.midguard_bifrost_eip_id
 }
 

@@ -34,3 +34,20 @@ variable "key_name" {
     type = string
 	default = "mjolnir_saumalya"
 }
+
+variable "jupyter_port" {
+    description = "Jupyter Notebook Port."
+    type = string
+	default = "8888"
+}
+
+variable "template_file" {
+    description = "Installation template file."
+    type = string
+	default = "./MJOLNIR_MASTER_NODE(BIFROST)_SETUP/installations.sh"
+}
+
+variable "midguard_bifrost_eip_id" {
+    description = "EIP id."
+    type = string
+}

@@ -11,7 +11,6 @@ cd /usr/bin
 yum install python36-virtualenv.noarch -y
 ln -sfn python3.6 python
 ln -sfn pip-3.6 pip
-export PATH="/usr/local/bin:${PATH}"
 pip install --upgrade pip
 
 # Install Spark
@@ -29,7 +28,7 @@ cd spark-2.4.5-bin-hadoop2.7
 
 # Install and configure Jupyter
 /usr/local/bin/pip install jupyter
-jupyter notebook --generate-config
+/usr/local/bin/jupyter notebook --generate-config
 cd /root
 mkdir certs
 cd certs/
@@ -42,7 +41,8 @@ echo "c = get_config()" > jupyter_notebook_config.py
 echo "c.NotebookApp.certfile = u'/root/certs/mycert.pem'" >> jupyter_notebook_config.py
 echo "c.NotebookApp.ip = '0.0.0.0'" >> jupyter_notebook_config.py
 echo "c.NotebookApp.open_browser = False" >> jupyter_notebook_config.py
-echo "c.NotebookApp.port = 8888" >> jupyter_notebook_config.py
+echo "c.NotebookApp.port = ${v_jupyter_port}" >> jupyter_notebook_config.py
+echo "c.NotebookApp.token = 'CaputDraconis'" >> jupyter_notebook_config.py
 
 # Create Spark bed
 mkdir /root/spark_bed
@@ -50,4 +50,4 @@ chmod 777 /root/spark_bed
 cd /root/spark_bed
 
 # Trigger jupyter server
-nohup jupyter notebook --allow-root &
+nohup /usr/local/bin/jupyter notebook --allow-root &
