@@ -1,0 +1,23 @@
+---
+- name: Deploy Pilot Repo
+  connection: ssh
+  gather_facts: false
+  hosts: nodes
+  # become: yes
+  # become_user: mjolnir_saumalya
+  vars:
+    repo_name: mjolnir-repo/pilot
+  tasks:
+    - name: upgrade all packages
+      yum:
+        name=*
+        state=latest
+    - name: install git
+      yum:
+        name=git
+        state=latest
+    - name: cloning {{ repo_name }}
+      git:
+        repo: https://github.com/{{ repo_name }}.git
+        dest: "~/{{ repo_name }}"
+        update: yes
