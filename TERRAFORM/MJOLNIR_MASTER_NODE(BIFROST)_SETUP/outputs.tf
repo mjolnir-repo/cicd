@@ -19,6 +19,6 @@ output "bifrost_ip" {
   description = "Public IP of the Master Node"
 }
 
-output bifrost_user_data {
-  value = "\n${data.template_file.bifrost_user_data_file.rendered}"
-}
+# output bifrost_user_data {
+#   value = "\n${data.template_file.bifrost_user_data_file.rendered}"
+# }

@@ -1,13 +1,13 @@
-resource "aws_security_group" "midguard_heimdal_default" {
+resource "aws_security_group" "midgard_heimdal_default" {
     name        = "midguard_heimdal"
     description = "Control inbound and outbound traffic"
-    vpc_id      = aws_vpc.midguard.id
-
-    tags = {
-        Name = "midguard_heimdal_default"
-        project = var.project
-        owner = var.user
-    }
+    vpc_id      = aws_vpc.midgard.id
+    tags = merge(
+        local.common_tags,
+        {
+            Name = var.security_group_name
+        }
+    )
 
     ingress {
         description = "All traffic from VPC"
