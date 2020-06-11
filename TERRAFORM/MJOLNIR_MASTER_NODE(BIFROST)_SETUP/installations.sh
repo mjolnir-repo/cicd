@@ -3,8 +3,26 @@
 # Update existing packages
 yum update -y
 
+# Install git
+yum install git -y
+
 # Install Docker
 yum install docker -y
+service docker start
+usermod -a -G docker ec2-user
+chkconfig docker on
+
+# Install Docker-Compose
+curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+
+# Getting the Concourse-Ansible-POC-repo
+mkdir ~/Mjolnir
+cd ~/Mjolnir
+git clone https://github.com/mjolnir-repo/cicd.git
+cd cicd
+git pull origin MJ-38
+service docker start
 
 # Install Python 3
 cd /usr/bin

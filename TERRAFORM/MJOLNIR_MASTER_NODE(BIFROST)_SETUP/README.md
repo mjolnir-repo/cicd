@@ -11,22 +11,29 @@
 
 5. Initiate `terraform` providers using `terraform init`
 
+## Requirement
+
+#### To deploy master node for `Mjolnir` project, Services to be deployed are:
+
+1. Master `EC2` node - `BiFrost`
+
+#### Please note, `BiFrost` will be deployed in `Midgard` network.
 
 ## Usage Instruction  
 
-First check Terraform paln
+#### First check Terraform paln
 
 > `terraform paln`
 
-To launch the infrastructure, use
+#### To launch the infrastructure, use
 
 >  `terraform apply`
 
-To launch the with custom variables, use any of the following:
+#### To launch the with custom variables, use any of the following:
 
 >  `terraform apply -var region=<you choice of region> ...`
 
-or
+#### or
 
 >  `export TF_VAR_region=<Your choice of region>`
 
@@ -34,4 +41,4 @@ or
 
 > `terraform apply`
 
-#### That's all folks!!
+### That's all folks!!

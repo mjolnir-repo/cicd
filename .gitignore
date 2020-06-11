@@ -3,3 +3,6 @@
 
 # Ignoring lock files, because I don't understand the value, so better not to push it on a public repository
 *.terraform/
+
+# Ignoring R&D setup
+TERRAFORM/MJOLNIR_R&D/*

@@ -18,7 +18,7 @@ terraform {
         bucket = "mjolnir-cicd-terraform-remote-state-location"
         dynamodb_table = "mjolnir-cicd-terraform-state-lock-dynamo-collection"
         region = "us-east-1"
-        key = "CICD/TERRAFORM/MJOLNIR_INFRA_SETUP/mjolnir_infra_setup.tfstate"
+        key = "CICD/TERRAFORM/BIFROST_SETUP/bifrost_setup.tfstate"
     }
 }
 
