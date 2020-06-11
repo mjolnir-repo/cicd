@@ -1,13 +1,13 @@
 ---
 jobs:
-- name: simple
+- name: docker_trigger
   plan:
-  - task: simple-task
+  - task: docker_trigger
     config:
       platform: linux
       image_resource:
         type: docker-image
         source: {repository: busybox}
       run:
-        path: echo
-        args: ["Hello", "world!"]
+        path: docker
+        args: ["--version"]

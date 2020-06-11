@@ -12,10 +12,15 @@ ENV LIBRARY_PATH=/lib:/usr/lib
 # Install ansible
 ARG ANSIBLE_VERSION=2.5
 
-RUN pip install ansible==$ANSIBLE_VERSION
+RUN pip install ansible==$ANSIBLE_VERSION && \
+    mkdir /Mjolnir && \
+    cd /Mjolnir && \
+    git clone https://github.com/mjolnir-repo/cicd.git && \
+    cd cicd && \
+    git pull origin MJ-38
 
 # Set Workdir
-WORKDIR /ansible
+WORKDIR "/Mjolnir/cicd/CONCOURSE/CONCOURSE-ANSIBLE-POC/Ansible_Bed"
 
 # Define volumes
-VOLUME [ "/ansible", "/ansible/playbooks", "/root/.ssh" ]
+# VOLUME [ "/ansible", "/ansible/playbooks", "/root/.ssh" ]
